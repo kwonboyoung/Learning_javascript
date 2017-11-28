@@ -1,0 +1,11 @@
+<!--alert("좋아요");-->
+
+<!-- @result가 freeze되어 nil일 경우 -->
+if(<%= @result%>){
+    $('#like_button').text("Like").addClass("btn-info").removeClass("btn-danger");
+}
+else
+{
+    $('#like_button').text("DisLike").addClass("btn-danger").removeClass("btn-info");
+}
+$('#like_count').text(<%=@post.likes.count%>);

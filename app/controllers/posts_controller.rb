@@ -1,15 +1,37 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :create_comment, :like_post]
+  before_action :is_login?, only: [:create_comment, :like_post, :destroy_comment]
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
   end
+  
+  def create_comment
+    @c = @post.comments.create(body: params[:body])
+  end
+
+  def destroy_comment
+    @d = Comment.find(params[:comment_id]).destroy
+  end
+  
+  def like_post
+      # 기본적인 형태가 배열. 그러므로 first라고 해야 함.
+      if Like.where(user_id: current_user.id, post_id: @post.id).first.nil?
+        @result = current_user.likes.create(post_id: @post.id)
+      else
+        @result = current_user.likes.find_by(post_id: @post.id).destroy
+      end
+    @result = @result.frozen?
+  end 
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @like = true
+    if user_signed_in?
+      @like = current_user.likes.find_by(post_id: @post.id).nil? if user_signed_in?
+    end
   end
 
   # GET /posts/new
@@ -62,6 +84,15 @@ class PostsController < ApplicationController
   end
 
   private
+  
+    def is_login?
+      unless user_signed_in?
+        respond_to do |format|
+          format.js {render 'please_login.js.erb'}
+        end
+      end
+    end
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
