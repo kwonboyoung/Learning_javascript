@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   end
   
   def create_comment
-    @c = @post.comments.create(body: params[:body])
+    @c = @post.comments.create(comment_params)
   end
 
   def destroy_comment
@@ -102,4 +102,9 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:title, :content)
     end
+    
+    def comment_params
+      params.require(:comment).permit(:body)
+    end
+    
 end

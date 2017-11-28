@@ -11,7 +11,7 @@
 </p>
 
 <%= form_tag create_comment_to_post_path, id: "comment" do %>
-  <%= text_field_tag :body%>
+  <%= text_field_tag "comment[body]"%>
   <%= submit_tag "댓글달기"%>
 <%end%>
 
@@ -57,13 +57,15 @@
     })
     
     var form = $('#comment');
+    
     form.on('click', function() {
       /*alert("댓글 등록해");*/
     })
     
-    form.on('submit', function(e){
+    $(document).on('submit','#comment', function(e){
       e.preventDefault();
-      var contents = $('#body').val();
+      var contents = form.serialize(); # form에 들어있는 모든 input tag를 가져오는 것.
+      // var contents = $('#comment_body').val();
       alert(contents+" 라고 등록할꺼?");
       $.ajax({
         url: "<%= create_comment_to_post_path%>",
