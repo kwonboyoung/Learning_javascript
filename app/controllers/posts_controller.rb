@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.order("created_at DESC").page(params[:page])
   end
   
   def create_comment
@@ -12,9 +12,14 @@ class PostsController < ApplicationController
   end
 
   def destroy_comment
-    @d = Comment.find(params[:comment_id]).destroy
+    @c = Comment.find(params[:comment_id]).destroy
   end
   
+  def page_scroll
+    @posts = Post.order("created_at DESC").page(params[:page])
+  end
+  
+  # 기본적으로 똑같은 이름의 js파일을 rendering한다.
   def like_post
       # 기본적인 형태가 배열. 그러므로 first라고 해야 함.
       if Like.where(user_id: current_user.id, post_id: @post.id).first.nil?

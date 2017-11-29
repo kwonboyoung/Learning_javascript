@@ -1,0 +1,16 @@
+alert("무한스크롤");
+
+
+    $('#mytable tbody').append(
+    `
+    <% @posts.each do |post|%>
+    <tr>
+        <td><%= post.id %></td>
+        <td class="title"><%= post.title %></td>
+        <td class="content"><%= truncate post.content, length: 20 %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <%end%>
+    `);

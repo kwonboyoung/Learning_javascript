@@ -1,285 +1,4 @@
-### 변수명 작성법
-
-캐멀케이스(startName)
-
-스네이크케이스(start_name)
-
-헝가리언케이스(str_start_name)
-
-
-
-### 코딩스타일
-
-BSD 스타일이 퍼포먼스가 더 좋고, 많이 쓰인다.
-
-<BSD>
-
-for(조건문)
-
-{
-
-}
-
-
-
-## javascript
-
-```ruby
-# gemfile
-gem 'bootstrap-sass'
-```
-
-```ruby
-# app << assets << stylesheets << application.scss
-@import 'bootstrap';
-```
-
-```html
-<script type="text/javascript">
-  var el = 10;
-  var el2 = 11;
-  for(var a = 1; a < 10; a++)
-  {
-    console.log("HELLO");
-    console.dir(console);
-  }
-</script>
-```
-
-```ruby
-# Q. 오늘 출석한 사람 중에서 가장 키가 큰 사람은?
-# 1. 배열을 만든다. 배열에 모든 사람의 키를 입력한다.
-# 2. 첫번째 사람의 키를 알아낸다. 이 사람이 가장 큰 사람이라고 가정한다.
-# 3. 두번째 사람....세번째 사람..... 돌면서 가장 큰 사람과의 키를 비교한다.
-# 4. 가장 큰 사람보다 더 큰 사람이 나타나면 그 사람이 가장 큰 사람이라고 다시 가정한다.
-# 5. 모든 사람의 키를 비교하면 가장 큰 사람의 키를 알 수 있다.
-
-# Q. 홈페이지에 가입할 때 아이디 중복체크 하는 과정
-# 1. 아이디를 폼에 입력한다.
-# 2. 중복확인 버튼(이벤트 리스너)을 클릭한다. (이벤트)
-# 3. 폼이 빈칸인지 확인. 안내메시지 출력. (메소드)
-# 4. 빈칸이 아닌지 확인 후 db에 쿼리를 날린다.
-# 5. row가 존재하는지 확인.
-# 6. 결과값을 출력한다. 0이면 계정 없음. 1이면 중복.
-
-
-# app >> assets >> javascripts >> posts.js
-# Q. 50분마다 잠시 쉬는 시간을 가지는 안내메시지를 출력
-# 17시는 마지막 시간이므로 수고하셨습니다. 메시지 출력
-# 그 전에는 열공합니다 메시지 출력
-
-# 1. 현재 시간을 가져온다.
-# 2. 현재 시간 중에서 " 시"에 해당하는 부분을 가져온다.
-# 3. " 시"에 해당하는 부분이 17 이상일 경우 "잘가용" 아닐 경우 "열공해용" 메시지를 출력한다. (alert)
-# 4. 1,2,3에 해당하는 내용에 50분에 한번씩만 출력할 수 있도록 한다.
-
-setInterval(function(){ 
-    var time = new Date();
-    console.log(time);
-    var hour = time.getHours();
-    console.log(hour);
-    if(hour == 17)
-    {
-        alert("잘가용");
-    }
-    else
-    {
-        alert("열공해용");
-    }
-}, 1*1000*60*60);
-```
-
-```ruby
-# 미리 선언하지 않았더라고 어느 위치에서든 사용 가능
-function 함수이름(파라미터){
-  
-}
-
-# 미리 선언하지 않았을 경우, 사용 불가
-var 함수이름 = function(파라미터){
-  
-}
-
-# app >> assets >> javascripts >> posts.js
-function alertRest(){ 
-    var time = new Date();
-    console.log(time);
-    var hour = time.getHours();
-    console.log(hour);
-    if(hour == 17)
-    {
-        alert("잘가용");
-    }
-    else
-    {
-        alert("열공해용");
-    }
-}
-
-setInterval(alertRest, 5000);
-  
-# public >> title.js
-# Q.모든 타이틀 들을 내가 원하는 이름으로 바꾸기
-# (버튼을 눌렀을 때)
-# 1. 버튼이 눌린다.
-# 1-1. 버튼의 내용을 가져온다.
-# 1-2. 버튼에 onClickListener를 달아준다.
-# 1-3. 버튼을 눌렀을 때 메소드를 실행시킨다.
-# 2. 타이틀에 해당하는 HTML ELEMENT들을 가져온다. 
-# 3. 각각을 순환하며 내용을 바꾼다.
- 
-function setTitle(){
-    var titles = document.getElementsByClassName('title');
-    for(var i = 0; i < titles.length; i++){
-        titles[i].innerHTML = "배가 아프다....."
-    }
-}
-
-var btn = document.getElementsByTagName('button')[0];
-btn.onclick = function(){
-    alert("Done");
-    setTitle();
-};
-  
-# views >> posts >> index.html.erb
-<button>setTitle</button>
-<script src="./title.js"></script>
-
-<td class="title"><%= post.title %></td>
-<td class="content"><%= post.content %></td>
-  
-# 자바스크립트로 html 내용물 가져오기
-document.getElementsById(ID명);
-document.querySelectorAll(css selector명);
-document.getElementsByClassName(class명);
-document.getElementsByTagName(tag명);
-```
-
-```ruby
-# views >> posts >> index.html.erb
-<table id="mytable" class="table">
-    
-# views >> layouts >> application.html.erb
-<div class="container">
-<%= yield %>
-</div>
-  
-# public >> class.js
-# Q. 버튼을 눌렀을 때, table 태그에 class를 추가/삭제한다.
-# 1. 버튼을 누른다.
-# 1-1. 버튼 요소를 가지고 온다.
-# 1-2. 버튼 요소에 eventListener(click)를 달아준다.
-# 1-3. 버튼을 눌렀을 때 실행시킬 메소드를 작성한다.
-# 2. table태그 요소를 가지고 온다.
-# 3. table태그에 내가 원하는 class(table-hover)가 있는지 확인한다.
-# 3-1. class가 있으면 제거한다.
-# 3-2. class가 없으면 추가한다.
-
-var btn = document.getElementById('setClass');
-btn.onclick = function(){
-    console.log("button!!!");
-    toggleClass();
-}
-
-function toggleClass(){
-    var tb = document.getElementsByClassName("table")[0];
-     console.log(tb.classList);
-     console.dir(tb.classList);
-     if(tb.classList.contains('table-hover')){
-         tb.classList.remove('table-hover');
-     }else{
-         tb.classList.add('table-hover');
-     }
-    
-    // 위와 같은 코드
-    // tb.classList.toggle('table-hover');
-}
-
-  
-# views >> posts >> index.html.erb
-<button id="setClass">setClass</button>
-<script src="./class.js"></script>
-    
-<table id="mytable" class="table table-hover">
-```
-
-```ruby
-# public >> attribute.js
-# Q. table의 크기를 내가 원하는 만큼으로 설정하기
-# style width -> 그때 그때 원하는 만큼으로
-# 1. 버튼을 누른다.
-# 1-1. 버튼 요소를 가지고 온다.
-# 1-2. 버튼 요소에 eventListener(click)를 달아준다.
-# 1-3. 버튼을 눌렀을 때 실행시킬 메소드를 작성한다.
-# 2. table태그 요소를 가지고 온다.
-# 2-1. prompt 창을 띄운다.
-# 2-2. prompt 창에 내가 원하는 사이즈를 입력한다.
-# 2-3. table의 style속성 중 width 속성을 바꾼다.
-
-var btn = document.getElementById('setAttribute');
-btn.onclick = function(){
-    setWidth();
-}
-
-function setWidth(){
-    var tb = document.getElementById('mytable');
-    var size = prompt("원하는 사이즈를 입력하세요 : ");
-    tb.setAttribute('style','width:'+size+'%');
-}
-```
-
-
-
-- jQuery
-
-  ```ruby
-  # 다 같은 의미 (어떤 것이 load가 먼저 될지 보장하지 못할 때)
-  $(document).on('ready',function(){
-      
-  });
-
-  $(document).ready(function(){
-      
-  })
-
-  $(function(){
-      
-  })
-  ```
-
-  ```ruby
-  # _form.html.erb
-  <div class="field">
-      <%= f.label :title %><br>
-    <%= f.text_field :title, class: 'form-control' %>
-  </div>
-    <div class="field">
-        <%= f.label :content %><br>
-      <%= f.text_area :content, class: 'form-control' %>
-  </div>
-      <div class="actions">
-          <%= f.submit "작성", class: 'btn btn-success'%>
-  </div>
-        
-  <script src="/form-control.js"></script>
-        
-  # public >> form-control.js
-  # Q. post_title의 내용물이 바뀌면 alert를 통해 내용물을 확인한다.
-  # 1. #post_title 요소를 가지고 온다.
-  # 1-1. 요소에 onChangeListener를 달아준다.
-  # 1-2. 요소의 바뀐 값을 추출한다.
-  # 1-3. 값을 변수에 저장한다.
-  # 2. 변수에 저장된 값을 alert한다.
-        
-  $(function(){
-      $('#post_title').val("야호야호");
-      $('#post_title').on("chage", function(){
-          var text = $('#post_title').val();
-          alert(text);
-      })
-  })
-  ```
-
+오늘의 목표
 
 1. 댓글달기 -> ajax
 
@@ -489,6 +208,7 @@ $('#body').val("");
 $('#comment_table tbody').append(
 `<tr>
     <td><%= @c.body%></td>
+    <td><%= link_to "삭제", destroy_comment_to_posts_path(@c.id), method: :delete, data:{confirm:"정말 삭제하시겠습니까?"}, class: "btn btn-warning", remote: true%><td>
  </tr>`);
 ```
 
@@ -654,5 +374,296 @@ else
     $('#like_button').text("DisLike").addClass("btn-danger").removeClass("btn-info");
 }
 $('#like_count').text(<%=@post.likes.count%>);
+```
+
+```ruby
+# posts_controller.rb
+def create_comment
+  @c = @post.comments.create(comment_params)
+end
+	
+def comment_params
+  params.require(:comment).permit(:body)
+end
+```
+
+```ruby
+# views >> posts >> show.html.erb
+<%= form_tag create_comment_to_post_path, id: "comment" do %>
+  <%= text_field_tag "comment[body]"%>
+  <%= submit_tag "댓글달기"%>
+<%end%>
+  
+$(document).on('submit','#comment', function(e){
+  e.preventDefault();
+  var contents = form.serialize(); # form에 들어있는 모든 input tag를 가져오는 것.
+  // var contents = $('#comment_body').val();
+  alert(contents[comment][body]+" 라고 등록할꺼?");
+  $.ajax({
+    url: "<%= create_comment_to_post_path%>",
+    method: "POST",
+    data: {body: contents}
+  })
+})
+```
+
+- 댓글 삭제 기능 추가
+
+  ```ruby
+  # routes.rb
+    # /posts/:id
+    # /posts/:id/edit
+    resources :posts do
+      # /posts/:id/{내가 설정한 url}
+      member do
+        post '/create_comment' => 'posts#create_comment', as: 'create_comment_to'
+        post '/like_post' => 'posts#like_post', as: 'like_to'
+      end
+      # /posts/{내가 설정한 url}
+      collection do
+        delete '/:comment_id/destroy_comment' => 'posts#destroy_comment', as: 'destroy_comment_to'
+      end
+    end
+  ```
+
+  ```ruby
+  # views >> posts >> show.html.erb
+  <tbody>
+      <% @post.comments.reverse.each do |c|%>
+        <tr id="comment-<%= c.id %>">
+          <td><%= c.body%><td>
+          <td><%= link_to "삭제", destroy_comment_to_posts_path(c.id), method: :delete, data:{confirm:"정말 삭제하시겠습니까?"}, class: "btn btn-warning", remote: true%><td>
+        </tr>
+      <%end%>
+  </tbody>
+  ```
+
+  ```ruby
+  # posts_controllers.rb
+  before_action :is_login?, only: [:create_comment, :like_post, :destroy_comment]
+  # 로그인한 유저만 삭제 가능
+  def destroy_comment
+    @c = Comment.find(params[:comment_id]).destroy
+  end
+  ```
+
+  ```ruby
+  # views >> posts >> destroy_comment.js.erb 생성
+  $('#comment-<%= @c.id %>').fadeOut();
+  ```
+
+  ​
+
+
+## 3. infinite scroll
+
+```ruby
+# views >> posts >> index.html.erb
+<td class="content"><%= truncate post.content, length: 20 %></td>
+  
+  # 하단에 추가
+  <%= paginate @posts %>
+
+<script>
+  $(function() {
+    var page_scroll_index = 1;
+    $(document).on('scroll',function(){
+      if($(window).scrollTop() == $(document).height() - $(window).height()){
+        $.ajax({
+          method: "GET",
+          url: "<%=scroll_posts_path%>"
+          })
+        }
+    });
+  });
+</script>
+  
+```
+
+```ruby
+# posts_controllers.rb
+def index
+  @posts = Post.order("created_at").page(params[:page])
+end
+```
+
+```ruby
+#routes.rb
+collection do
+      delete '/:comment_id/destroy_comment' => 'posts#destroy_comment', as: 'destroy_comment_to'
+      get '/page_scroll' => 'posts#page_scroll', as: 'scroll'
+end
+```
+
+
+
+```html
+# document 안에 window가 돌아댕기고, document위부터 돌아댕기는 window창위까지의 길이가 $(window).scrollTop()이다.
+
+$(window).scrollTop()  = $(document).height - $(window).height()
+```
+
+
+
+```ruby
+# posts_controller.rb
+def page_scroll
+  @posts = Post.order("created_at").page(params[:page])
+end
+```
+
+```ruby
+# views >> posts >> page_scroll.js.erb 생성
+console.log("무한스크롤");
+```
+
+```ruby
+# index.html.erb 에서 table에 id를 mytable이라고 준 다음(id="mytable")
+# views >> posts >> page_scroll.js.erb
+alert("무한스크롤");
+
+<% @posts.each do |post|%>
+    $('#mytable tbody').append(
+    `
+    <tr>
+        <td><%= post.id %></td>
+        <td class="title"><%= post.title %></td>
+        <td class="content"><%= truncate post.content, length: 20 %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    `);
+<%end%>
+```
+
+```ruby
+# views >> posts >> index.html.erb
+<script>
+  $(function() {
+    var page_scroll_index = 1;
+    $(document).on('scroll',function(){
+      if($(window).scrollTop() == $(document).height() - $(window).height()){
+        $.ajax({
+          method: "GET",
+          url: "<%=scroll_posts_path%>",
+          data:{
+            page: page_scroll_index++
+          }
+        })
+      }
+    });
+  });
+</script>
+```
+
+- 새로운 게시물이 위로 뜨도록
+
+  ```ruby
+  # posts_controller.rb
+  def index
+    @posts = Post.order("created_at DESC").page(params[:page])
+  end
+
+  def page_scroll
+    @posts = Post.order("created_at DESC").page(params[:page])
+  end
+
+  ```
+
+- scroll이 40개씩 뜨도록
+
+  ```ruby
+  # model >> post.rb
+  class Post < ActiveRecord::Base
+      has_many :comments
+      has_many :likes
+      
+      paginates_per 40
+  end
+  ```
+
+- method를 부르는 횟수가 적어야 효율적인 코드이다. $('#mytable').append()를 자꾸하면 안조아
+
+  ```ruby
+  # views >> posts >> page_scroll.js.erb
+  $('#mytable tbody').append(
+    `
+  <% @posts.each do |post|%>
+  <tr>
+  	<td><%= post.id %></td>
+  	<td class="title"><%= post.title %></td>
+      <td class="content"><%= truncate post.content, length: 20 %></td>
+      <td><%= link_to 'Show', post %></td>
+      <td><%= link_to 'Edit', edit_post_path(post) %></td>
+      <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <%end%>
+  `);
+  ```
+
+
+
+## 4. 유효성 검사 (validation)
+
+우리가 원하는 길이인지?
+
+우리가 원하는 형태인지?
+
+
+
+=> 검사
+
+front / back
+
+```ruby
+# views >> posts >> show.html.erb
+# keypress => 키를 누르는 즉시, keyup => 키에서 손을 떼는 즉시
+$('#comment').on('keyup',function(){
+  var text_length = $('#comment_body').val().length;
+  $('#word_count').text(text_length);
+})
+
+# 댓글다는 form tag 근처에 추가
+<h3><span id="word_count">0</span>/50</h3>
+```
+
+- max_length를 넘으면 안되도록
+
+  ```ruby
+  # views >> posts >> show.html.erb
+  var max_text_length = 50;
+  $('#comment').on('keyup',function(){
+    var text_length = $('#comment_body').val().length;
+    $('#word_count').text(text_length);
+    $('#word_count').addClass('text-success').removeClass('text-danger');
+    if(text_length > max_text_length){
+      alert("최대 길이 넘음");
+      $('#word_count').addClass('text-danger').removeClass('text-success');
+      // max_length를 넘은 글은 삭제된다
+      $('#comment_body').val($('#comment_body').val().substr(0, max_text_length));
+      text_length = $('#comment_body').val().length;
+      $('#word_count').text(text_length);
+    }
+  })
+  ```
+
+```ruby
+# model >> comment.rb
+class Comment < ActiveRecord::Base
+  belongs_to :post
+  validates :body, length: {maximum: 40}, presence: true
+  # return값이 40
+  def self.MAX_LENGTH   
+    40
+  end
+end
+```
+
+```ruby
+# views >> posts >> show.html.erb
+var max_text_length = <%=Comment.MAX_LENGTH %>;
+
+<h3><span id="word_count">0</span>/<%= Comment.MAX_LENGTH%></h3>
 ```
 
